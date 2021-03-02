@@ -6,9 +6,6 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,7 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  commit_message:
+  Build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -27,18 +24,39 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Commit Message
         run: echo "Commit message is ${{ github.event.head_commit.message }}"
-      
+        
+      - name: Unique id of the workflow
+        run: |
+          echo "Github RUN_ID is $GITHUB_RUN_ID"
+          echo "Github GITHUB_RUN_NUMBER is $GITHUB_RUN_NUMBER"
+        
+  Build_Windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Commit Message
+        run: echo "Commit message is ${{github.event.head_commit.message }}"
+        
+      - name: Unique id of the workflow
+        run: |
+          echo "Github RUN_ID is ${env:GITHUB_RUN_ID}"
+          echo "Github GITHUB_RUN_NUMBER is ${env:GITHUB_RUN_NUMBER}"
       #Outputs changed files
       - name: changed files
         id: files
         uses: jitterbit/get-changed-files@v1
-      - run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
-          echo "Do something with this ${changed_file}."
-          done
+      - name: Changed files list
+        run: |
+          echo ${{steps.files.outputs.all }}
+          foreach ($changed_file in ${{steps.files.outputs.all }}) 
+          { $changed_file }
         
-  
-  
-  
