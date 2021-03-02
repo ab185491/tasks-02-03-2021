@@ -57,6 +57,5 @@ jobs:
       - name: Changed files list
         run: |
           echo ${{steps.files.outputs.all }}
-          foreach ($changed_file in ${{steps.files.outputs.all }}) 
-          { $changed_file }
+          echo ${{steps.files.outputs.all.length }}
         
