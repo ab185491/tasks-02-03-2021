@@ -48,15 +48,14 @@ jobs:
         
       - name: Unique id of the workflow
         run: |
-          echo "Github RUN_ID is $GITHUB_RUN_ID"
-          echo "Github GITHUB_RUN_NUMBER is $GITHUB_RUN_NUMBER"
+          echo "Github RUN_ID is ${env:GITHUB_RUN_ID}"
+          echo "Github GITHUB_RUN_NUMBER is ${env:GITHUB_RUN_NUMBER}"
       #Outputs changed files
       - name: changed files
         id: files
         uses: jitterbit/get-changed-files@v1
       - name: Changed files list
         run: |
-          for changed_file in ${{steps.files.outputs.all }}; do
-          echo "Do something with this ${changed_file}."
-          done
+          foreach ($changed_file in ${{steps.files.outputs.all }}) 
+          { $changed_file }
         
