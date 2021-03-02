@@ -44,7 +44,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Commit Message
-        run: echo "Commit message is ${{env:github.event.head_commit.message }}"
+        run: echo "Commit message is ${{github.event.head_commit.message }}"
         
       - name: Unique id of the workflow
         run: |
@@ -56,10 +56,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - name: Changed files list
         run: |
-          for changed_file in ${{env:steps.files.outputs.all }}; do
+          for changed_file in ${{steps.files.outputs.all }}; do
           echo "Do something with this ${changed_file}."
           done
         
-  
-  
-  
