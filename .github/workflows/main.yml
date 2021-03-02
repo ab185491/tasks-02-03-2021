@@ -57,5 +57,4 @@ jobs:
       - name: Changed files list
         run: |
           echo ${{steps.files.outputs.all }}
-          echo ${{steps.files.outputs.all.length }}
         
