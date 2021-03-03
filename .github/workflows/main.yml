@@ -51,7 +51,7 @@ jobs:
           $file_string = python script.py ${{github.event.head_commit.message }}
           $file_string = $file_string.Trim()
           $files = $file_string.Split(" ")
-          ForEach($file in files){
+          ForEach($file in $files){
             python "$file.py"
           }
 
