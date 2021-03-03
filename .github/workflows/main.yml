@@ -49,8 +49,11 @@ jobs:
       - name: Run Files specified in commit message
         run: |
           $file_string = python script.py ${{github.event.head_commit.message }}
+          $file_string = $file_string.Trim()
           $files = $file_string.Split(" ")
-          $files
+          ForEach($file in files){
+            python "$file.py"
+          }
 
       - name: Unique id of the workflow
         run: |
